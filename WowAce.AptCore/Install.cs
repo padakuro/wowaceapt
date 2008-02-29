@@ -23,10 +23,10 @@ namespace WowAce.AptCore
 {
     public class AptActionInstall : AptAction
     {
-        private AptEnvironment AptEnv;
-        private AptLocal AptL;
-        private AptRemote AptR;
-        private AptRepository AptRepo;
+        protected AptEnvironment AptEnv;
+        protected AptLocal AptL;
+        protected AptRemote AptR;
+        protected AptRepository AptRepo;
 
         public AptActionInstall(AptEnvironment env)
         {
@@ -47,6 +47,8 @@ namespace WowAce.AptCore
         public bool Install(string addonName, bool skipDependencies)
         {
             RepositoryAddonInfo info = AptRepo.GetAddonInfo(addonName);
+
+            SendStatus("install", info.Name);
 
             bool success = false;
 

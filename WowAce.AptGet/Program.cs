@@ -365,7 +365,7 @@ namespace WowAce.AptGet
 
         private void ExitWrongUsage()
         {
-            Output.Error("Wrong command usage. Enter 'ace-get help' for more information.\n");
+            Output.Error("Wrong command usage. Try 'ace-get help' for more information.\n");
             Environment.Exit(1);
         }
 
