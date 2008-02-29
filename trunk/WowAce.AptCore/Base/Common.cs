@@ -53,11 +53,16 @@ namespace WowAce.AptCore
     public abstract class AptCommon
     {
         public delegate void DebugMessageEventHandler(string[] message);
-        public static event DebugMessageEventHandler eDebugMessage;
+        protected static event DebugMessageEventHandler eDebugMessage;
         
         protected AptCommon()
         {
             
+        }
+
+        public static void AddDebugListener(DebugMessageEventHandler func)
+        {
+            eDebugMessage += func;
         }
 
         protected static void SendDebugMessage(string str1)

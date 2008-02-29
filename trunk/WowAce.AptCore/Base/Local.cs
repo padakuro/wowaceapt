@@ -72,6 +72,7 @@ namespace WowAce.AptCore
                 FastZip zip = new FastZip();
                 zip.ExtractZip(Path.Combine(AptEnv.AptZipPath, zipFile), AptEnv.WoWAddonsPath, "");
                 SendDebugMessage("local.install.success", zipFile);
+                FetchInstalledAddons();
                 return true;
             }
             catch (ZipException e)

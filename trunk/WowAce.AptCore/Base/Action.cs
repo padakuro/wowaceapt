@@ -23,7 +23,12 @@ namespace WowAce.AptCore
     public class AptAction : AptCommon
     {
         public delegate void StatusMessageEventHandler(string[] message);
-        public event StatusMessageEventHandler eStatusMessage;
+        protected event StatusMessageEventHandler eStatusMessage;
+
+        public void AddStatusListener(StatusMessageEventHandler func)
+        {
+            eStatusMessage += func;
+        }
 
         protected void SendStatus(string str1)
         {
