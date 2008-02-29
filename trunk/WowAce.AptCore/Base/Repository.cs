@@ -83,7 +83,7 @@ namespace WowAce.AptCore
                     {
                         RepositoryAddonInfo info = new RepositoryAddonInfo()
                         {
-                            Name = item["title"].InnerText
+                            Name = item["title"].InnerText,
                         };
 
                         if (item["link"] != null) { info.Link = item["link"].InnerText; }
@@ -105,6 +105,10 @@ namespace WowAce.AptCore
                             if (m != null)
                             {
                                 info.Version = new AddonVersionNumber(Int32.Parse(m.Groups[1].Value));
+                            }
+                            else
+                            {
+                                info.Version = AddonVersionNumber.NO_VERSION;
                             }
                         }
                         else

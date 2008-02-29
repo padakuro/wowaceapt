@@ -71,7 +71,10 @@ namespace WowAce.AptCore
                         {
                             foreach (string dependency in deps)
                             {
-                                usedDependecies.Add(dependency.ToLower());
+                                if (!usedDependecies.Contains(dependency.ToLower()))
+                                {
+                                    usedDependecies.Add(dependency.ToLower());
+                                }
                             }
                         }
                     }
@@ -79,12 +82,10 @@ namespace WowAce.AptCore
 
                 foreach (string dependency in info.RequiredDeps)
                 {
-                    if (!usedDependecies.Contains(dependency))
+                    string name = dependency.ToLower();
+                    if (!usedDependecies.Contains(name) && AptL.IsInstalled(name))
                     {
-                        if (AptL.IsInstalled(dependency))
-                        {
-                            Queue.Add(dependency.ToLower());
-                        }
+                        Queue.Add(name);
                     }
                 }
             }
