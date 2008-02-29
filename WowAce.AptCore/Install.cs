@@ -108,6 +108,23 @@ namespace WowAce.AptCore
                 {
                     for (int i = 0; i < info.RequiredDeps.Count; ++i)
                     {
+                        SendDebugMessage("install.dependency", info.RequiredDeps[i]);
+
+                        // dep not in repository -> skip
+                        if (!AptRepo.IsAddonInRepository(info.RequiredDeps[i]))
+                        {
+                            continue;
+                        }
+                        
+                        // already installed? check version
+                        if (AptL.IsInstalled(info.RequiredDeps[i]))
+                        {
+                            if (AptL.GetAddonInfo(info.RequiredDeps[i]).Version >= AptRepo.GetAddonInfo(info.RequiredDeps[i]).Version)
+                            {
+                                continue;
+                            }
+                        }
+
                         if (Install(info.RequiredDeps[i], true))
                         {
                             SendStatus("install.dependency.success", info.RequiredDeps[i]);
