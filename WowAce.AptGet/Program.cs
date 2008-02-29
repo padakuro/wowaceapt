@@ -126,6 +126,7 @@ namespace WowAce.AptGet
             // initalize AptEnvironment
             AddonEnv = new AptEnvironment();
             AddonEnv.UpdateServerUri = "http://files.wowace.com/";
+            AddonEnv.UseExternals = Cfg.UseExternals;
             if (Cfg.UseExternals)
             {
                 AddonEnv.UpdateIndexFile = "latest.xml";
