@@ -64,17 +64,25 @@ namespace WowAce.AptGet
             AddonLocal = new AptLocal(AddonEnv);
             AddonRemote = new AptRemote(AddonEnv);
 
+            if (Cfg.AutoUpdateIndex)
+            {
+                DoUpdate();
+            }
+
             Output.Info("Action: install addon(s).");
 
             int installedAddons = 0;
 
             if (InitializeRepository())
             {
-                Output.Info(String.Format("There are currently {0} addons in the database.", AddonRepo.GetAddonNum()));
-                PrintEnvInfo();
+                if (!Cfg.AutoUpdateIndex)
+                {
+                    Output.Info(String.Format("There are currently {0} addons in the database.", AddonRepo.GetAddonNum()));
+                    PrintEnvInfo();
+                }
 
                 AptActionInstall install = new AptActionInstall(AddonEnv, AddonLocal, AddonRemote, AddonRepo);
-                install.eStatusMessage += new AptAction.StatusMessageEventHandler(InstallStatusMessage);
+                install.AddStatusListener(new AptAction.StatusMessageEventHandler(InstallStatusMessage));
 
                 foreach (string addon in ArgAddons)
                 {

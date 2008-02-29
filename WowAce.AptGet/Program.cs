@@ -94,7 +94,7 @@ namespace WowAce.AptGet
                 if(m.Success) {
                     switch (m.Groups[1].Value)
                     {
-                        case "with-ext":    Cfg.UseExternals = true; break;
+                        case "ext":         Cfg.UseExternals = true; break;
                         case "no-ext":      Cfg.UseExternals = false; break;
                         case "silent":      Cfg.SilentMode = true; break;
                         case "ask":         Cfg.SilentMode = false; break;
@@ -102,8 +102,8 @@ namespace WowAce.AptGet
                         case "debug":       Cfg.DebugEnabled = true; break;
                         case "unpack":      Cfg.UnpackPackages = true; break;
                         case "keep-zips":   Cfg.KeepZips = true; break;
-                        case "no-dep-req":  Cfg.FetchRequiredDeps = false; break;
-                        case "dep-req":     Cfg.FetchRequiredDeps = true; break;
+                        case "no-deps":     Cfg.FetchRequiredDeps = false; break;
+                        case "deps":        Cfg.FetchRequiredDeps = true; break;
                         case "update":      Cfg.AutoUpdateIndex = true; break;
                         case "exclude":
                             if (m.Groups[2].Value != null)
@@ -141,7 +141,7 @@ namespace WowAce.AptGet
             AddonEnv.FetchRequiredDeps = Cfg.FetchRequiredDeps;
             AddonEnv.FetchOptionalDeps = Cfg.FetchOptionalDeps;
 
-            AptCommon.eDebugMessage += new AptCommon.DebugMessageEventHandler(ConsoleDebug);
+            AptCommon.AddDebugListener(new AptCommon.DebugMessageEventHandler(ConsoleDebug));
 
             // execute command
             switch (args[0])

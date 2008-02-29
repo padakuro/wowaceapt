@@ -54,7 +54,7 @@ namespace WowAce.AptGet
             {
                 foreach (string addon in remove)
                 {
-                    Output.Append(String.Format("\nUninstalling {0}...", AddonLocal.GetAddonInfo(addon).Name));
+                    Output.Append(String.Format("\n  Uninstalling {0}...", AddonLocal.GetAddonInfo(addon).Name));
                     if (AddonLocal.Uninstall(addon))
                     {
                         Output.Append(" done.");

@@ -51,7 +51,7 @@ namespace WowAce.AptGet
                 int updatedAddons;
 
                 AptActionUpgrade upgrade = new AptActionUpgrade(AddonEnv, AddonLocal, AddonRemote, AddonRepo);
-                upgrade.eStatusMessage += new AptAction.StatusMessageEventHandler(UpgradeStatusMessage);
+                upgrade.AddStatusListener(new AptAction.StatusMessageEventHandler(UpgradeStatusMessage));
 
                 foreach (string excludeAddon in ArgExclude)
                 {
