@@ -47,6 +47,7 @@
     <Compile Include="Base\Remote.cs" />
     <Compile Include="Base\Repository.cs" />
     <Compile Include="Base\VersionNumber.cs" />
+    <Compile Include="Remove.cs" />
     <Compile Include="Upgrade.cs" />
   </ItemGroup>
   <ItemGroup>

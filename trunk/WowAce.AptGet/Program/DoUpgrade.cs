@@ -27,7 +27,12 @@ namespace WowAce.AptGet
     {
         private void UpgradeStatusMessage(string[] message)
         {
-
+            switch (message[0])
+            {
+                default:
+                    InstallStatusMessage(message);
+                    break;
+            }
         }
         
         public void DoUpgrade()

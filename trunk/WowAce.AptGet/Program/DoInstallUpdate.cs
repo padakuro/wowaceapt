@@ -28,6 +28,7 @@ namespace WowAce.AptGet
         {
             switch (message[0])
             {
+                case "install":             Output.Append(String.Format("\nInstalling {0}...", message[1])); break;
                 case "uninstall":           Output.Append("\n  * uninstalling..."); break;
                 case "zip.download":        Output.Append("\n  * downloading..."); break;
                 case "zip.cache":           Output.Append("\n  * using cache..."); break;
@@ -88,8 +89,6 @@ namespace WowAce.AptGet
                 {
                     if (AddonRepo.IsAddonInRepository(addon))
                     {
-                        Output.Info(String.Format("Installing {0}...", AddonRepo.GetAddonInfo(addon).Name));
-
                         if (install.Install(addon, false))
                         {
                             installedAddons++;

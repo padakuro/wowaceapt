@@ -22,20 +22,15 @@ using System.Text;
 
 namespace WowAce.AptCore
 {
-    public class AptActionUpgrade : AptAction
+    public class AptActionUpgrade : AptActionInstall
     {
-        private AptEnvironment AptEnv;
-        private AptLocal AptL;
-        private AptRemote AptR;
-        private AptRepository AptRepo;
-
         private List<string> NamePatterns;
         private List<string> ExcludedAddons;
         private List<string> UpdateQueue;
         private List<string> DependencyQueue;
         private List<string> UnresolvedDeps;
 
-        public AptActionUpgrade(AptEnvironment env)
+        public AptActionUpgrade(AptEnvironment env) : base(env)
         {
             AptEnv = env;
             AptL = new AptLocal(env);
@@ -45,7 +40,7 @@ namespace WowAce.AptCore
             Initialize();
         }
 
-        public AptActionUpgrade(AptEnvironment env, AptLocal local, AptRemote remote, AptRepository repo)
+        public AptActionUpgrade(AptEnvironment env, AptLocal local, AptRemote remote, AptRepository repo) : base(env, local, remote, repo)
         {
             AptEnv = env;
             AptL = local;
@@ -208,7 +203,7 @@ namespace WowAce.AptCore
 
         public void Run()
         {
-            AptActionInstall install = new AptActionInstall(AptEnv, AptL, AptR, AptRepo);
+            //AptActionInstall install = new AptActionInstall(AptEnv, AptL, AptR, AptRepo);
             
             // fetch dependencies
             foreach (string dependency in DependencyQueue)
@@ -230,7 +225,7 @@ namespace WowAce.AptCore
                 }
 
                 // install
-                install.Install(dependency, true);
+                Install(dependency, true);
             }
 
             // fetch addons
@@ -239,7 +234,7 @@ namespace WowAce.AptCore
                 SendDebugMessage("upgrade.run.install", addon);
                 
                 // install
-                install.Install(addon, true);
+                Install(addon, true);
             }
         }
 
