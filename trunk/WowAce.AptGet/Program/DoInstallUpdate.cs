@@ -53,6 +53,7 @@ namespace WowAce.AptGet
                 case "zip.download.success":
                 case "install.success":
                 case "install.dependencies.finished":
+                case "install.dependencies.none":
                 case "unpack.success":
                 case "clear.success":
                     Output.Append(" done.");

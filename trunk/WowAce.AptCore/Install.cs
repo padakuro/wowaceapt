@@ -103,21 +103,28 @@ namespace WowAce.AptCore
                 bool successDeps = true;
 
                 SendStatus("install.dependencies");
-                
-                for (int i = 0; i < info.RequiredDeps.Count; ++i)
-                {
-                    if (Install(info.RequiredDeps[i], true))
-                    {
-                        SendStatus("install.dependency.success", info.RequiredDeps[i]);
-                    }
-                    else
-                    {
-                        SendStatus("install.dependency.failed", info.RequiredDeps[i]);
-                        successDeps = false;
-                    }
-                }
 
-                SendStatus("install.dependencies.finished",  successDeps.ToString());
+                if (info.RequiredDeps != null)
+                {
+                    for (int i = 0; i < info.RequiredDeps.Count; ++i)
+                    {
+                        if (Install(info.RequiredDeps[i], true))
+                        {
+                            SendStatus("install.dependency.success", info.RequiredDeps[i]);
+                        }
+                        else
+                        {
+                            SendStatus("install.dependency.failed", info.RequiredDeps[i]);
+                            successDeps = false;
+                        }
+                    }
+
+                    SendStatus("install.dependencies.finished", successDeps.ToString());
+                }
+                else
+                {
+                    SendStatus("install.dependencies.none");
+                }
             }
 
             // unpack?
