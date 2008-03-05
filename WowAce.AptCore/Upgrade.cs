@@ -218,10 +218,13 @@ namespace WowAce.AptCore
                 }
 
                 // no new version -> next one
-                if (AptL.GetAddonInfo(dependency).Version >= AptRepo.GetAddonInfo(dependency).Version)
+                if (AptL.IsInstalled(dependency))
                 {
-                    SendDebugMessage("upgrade.run.depdendency.uptodate", dependency);
-                    continue;
+                    if (AptL.GetAddonInfo(dependency).Version >= AptRepo.GetAddonInfo(dependency).Version)
+                    {
+                        SendDebugMessage("upgrade.run.depdendency.uptodate", dependency);
+                        continue;
+                    }
                 }
 
                 // install
@@ -243,7 +246,7 @@ namespace WowAce.AptCore
             List<string> all = new List<string>();
             foreach (string addon in UpdateQueue)
             {
-                string name = AptL.GetAddonInfo(addon).Name;
+                string name = AptRepo.GetAddonInfo(addon).Name;
                 if (!all.Contains(name))
                 {
                     all.Add(name);
@@ -251,7 +254,7 @@ namespace WowAce.AptCore
             }
             foreach (string addon in DependencyQueue)
             {
-                string name = AptL.GetAddonInfo(addon).Name;
+                string name = AptRepo.GetAddonInfo(addon).Name;
                 if (!all.Contains(name))
                 {
                     all.Add(name);
@@ -272,6 +275,7 @@ namespace WowAce.AptCore
 
         public void Exclude(string addonName)
         {
+            addonName = addonName.ToLower();
             if (!ExcludedAddons.Contains(addonName))
             {
                 ExcludedAddons.Add(addonName);
